@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>珀思云 PerseonAI — 感知智能 · 推理未来</title>
+    <meta name="description" content="珀思云科技提供AI辅助工业制造解决方案，涵盖智能质检、预测性维护、生产排程优化、工艺参数优化、供应链预测、数字孪生工厂六大核心产品。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --accent: #2563eb;
+            --accent-light: #3b82f6;
+            --accent-gradient-start: #2563eb;
+            --accent-gradient-end: #7c3aed;
+            --success: #059669;
+            --warning: #d97706;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== 导航栏 ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-bottom: 1px solid var(--border-color);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        .logo img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.2s;
+            border-radius: 1px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 9px 18px;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-cta:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        /* ===== Hero 区域 ===== */
+        .hero {
+            padding: 160px 24px 80px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+            font-weight: 900;
+            line-height: 1.08;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--accent-gradient-start) 0%, var(--accent-gradient-end) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 20px;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-desc {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 620px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-secondary);
+            transform: translateY(-2px);
+        }
+
+        /* ===== 客户 Logo ===== */
+        .customers {
+            padding: 40px 24px 60px;
+            text-align: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .customers-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 28px;
+        }
+
+        .customer-logos {
+            display: flex;
+            gap: 56px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .customer-logo {
+            height: 32px;
+            width: auto;
+            opacity: 0.45;
+            filter: grayscale(100%);
+            transition: all 0.3s;
+        }
+
+        .customer-logo:hover {
+            opacity: 0.8;
+            filter: grayscale(0%);
+        }
+
+        /* ===== 产品特性区域 ===== */
+        .features {
+            padding: 80px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(124,58,237,0.1));
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 100px;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gradient-start), var(--accent-gradient-end));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(124,58,237,0.08));
+        }
+
+        .feature-card h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            line-height: 1.65;
+        }
+
+        .feature-tag {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 4px 10px;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 100px;
+        }
+
+        /* ===== 产品展示区域 ===== */
+        .showcase {
+            padding: 60px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .showcase-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+            margin-bottom: 100px;
+        }
+
+        .showcase-item:nth-child(even) {
+            direction: rtl;
+        }
+
+        .showcase-item:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .showcase-content h3 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .showcase-content h2 {
+            font-size: 1.875rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        .showcase-content p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .showcase-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9375rem;
+            text-decoration: none;
+            transition: gap 0.2s;
+        }
+
+        .showcase-link:hover {
+            gap: 10px;
+        }
+
+        .showcase-image {
+            position: relative;
+        }
+
+        .showcase-image img {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-xl);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .showcase-image img:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+        }
+
+        .showcase-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(124,58,237,0.06));
+            border-radius: var(--radius-xl);
+            z-index: -1;
+        }
+
+        /* ===== 统计条 ===== */
+        .stats {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            padding: 80px 24px;
+            margin: 60px 0;
+        }
+
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 48px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-item p {
+            color: #94a3b8;
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        /* ===== CTA 区域 ===== */
+        .cta {
+            padding: 100px 24px;
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .cta p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 64px 24px 32px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
+            gap: 48px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .footer-brand img {
+            height: 32px;
+            width: auto;
+        }
+
+        .footer-desc {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.7;
+            max-width: 280px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .footer-column h4 {
+            font-size: 0.8125rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-bottom: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.8125rem;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .showcase-item {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .showcase-item:nth-child(even) {
+                direction: ltr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: 120px 20px 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">
+                <img src="./logo.png" alt="珀思云 PerseonAI Logo">
+                <span>珀思云</span>
+            </a>
+            <div class="nav-links">
+                <a href="#products">产品</a>
+                <a href="#solutions">解决方案</a>
+                <a href="#docs">文档</a>
+                <a href="#pricing">价格</a>
+                <a href="#" class="nav-cta">立即开始</a>
+            </div>
+            <button class="mobile-menu-btn" onclick="alert('移动端菜单功能开发中')">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span class="dot"></span>
+            AI 工业智造平台 v3.0 已发布
+        </div>
+        <h1>
+            感知智能<br>
+            <span class="gradient">推理未来</span>
+        </h1>
+        <p class="hero-subtitle">珀思云科技（南京）有限公司 · PerseonAI</p>
+        <p class="hero-desc">
+            以人工智能赋能工业制造，为制造业企业提供从质检、维护、排程到工艺优化、供应链预测、数字孪生的全链路智能化解决方案，让每一家工厂都拥有工业 AI 大脑。
+        </p>
+        <div class="hero-buttons">
+            <a href="#" class="btn-primary">
+                免费试用
+                <span>→</span>
+            </a>
+            <a href="#" class="btn-secondary">
+                查看文档
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- 客户 Logo -->
+    <section class="customers">
+        <p class="customers-label">受到行业领先制造企业的信赖</p>
+        <div class="customer-logos">
+            <div class="customer-logo" style="font-weight:700; font-size:1.1rem; color:#64748b;">某汽车集团</div>
+            <div class="customer-logo" style="font-weight:700; font-size:1.1rem; color:#64748b;">某电子制造</div>
+            <div class="customer-logo" style="font-weight:700; font-size:1.1rem; color:#64748b;">某钢铁企业</div>
+            <div class="customer-logo" style="font-weight:700; font-size:1.1rem; color:#64748b;">某光伏龙头</div>
+            <div class="customer-logo" style="font-weight:700; font-size:1.1rem; color:#64748b;">某化工集团</div>
+            <div class="customer-logo" style="font-weight:700; font-size:1.1rem; color:#64748b;">某精密加工</div>
+        </div>
+    </section>
+
+    <!-- 六大产品 -->
+    <section class="features" id="products">
+        <div class="section-header">
+            <span class="section-label">核心产品</span>
+            <h2>六大 AI 引擎，驱动智能制造</h2>
+            <p>覆盖工业制造全链路，从质量检测到数字孪生，为企业提供一站式 AI 升级方案。</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>AI 智能质检系统</h3>
+                <p>基于计算机视觉与深度学习，实现产线实时缺陷检测，检测精度达 99.2%，替代传统人工目检。</p>
+                <span class="feature-tag">缺陷检测 · 视觉识别</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <h3>AI 预测性维护</h3>
+                <p>融合设备传感器数据与 AI 算法，提前 7-14 天预测设备故障，降低非计划停机时间 40% 以上。</p>
+                <span class="feature-tag">故障预测 · 健康管理</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <h3>AI 生产排程优化</h3>
+                <p>智能算法自动编排生产计划，综合考虑订单优先级、设备产能、物料齐套，排程效率提升 30%。</p>
+                <span class="feature-tag">智能排产 · 资源优化</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>AI 工艺参数优化</h3>
+                <p>通过历史工艺数据挖掘最优参数组合，自动推荐最佳工艺窗口，良品率提升 5-15%。</p>
+                <span class="feature-tag">参数推荐 · 质量提升</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📦</div>
+                <h3>AI 供应链智能预测</h3>
+                <p>多维度数据融合预测需求波动，智能预警缺货风险，库存周转率提升 20%，缺货率降低 50%。</p>
+                <span class="feature-tag">需求预测 · 库存优化</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏭</div>
+                <h3>AI 数字孪生工厂</h3>
+                <p>构建虚实融合的工厂数字镜像，实现生产全流程可视化监控、仿真优化与虚拟调试。</p>
+                <span class="feature-tag">数字孪生 · 仿真优化</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品截图展示 -->
+    <section class="showcase" id="solutions">
+        <!-- 产品1: 智能质检 -->
+        <div class="showcase-item">
+            <div class="showcase-content">
+                <h3>产品一</h3>
+                <h2>AI 智能质检系统</h2>
+                <p>
+                    部署高清工业相机与边缘计算节点，实时采集产线图像数据。基于自研深度学习模型，毫秒级识别表面划痕、凹陷、色差、尺寸偏差等缺陷类型。
+                    支持多品种混线检测，自动适应产品换型，无需重新标定。检测数据实时回流 MES 系统，自动生成质量报表与 SPC 分析。
+                </p>
+                <a href="#" class="showcase-link">
+                    了解详情 →
+                </a>
+            </div>
+            <div class="showcase-image">
+                <img src="./product-1.png" alt="AI 智能质检系统界面">
+            </div>
+        </div>
+
+        <!-- 产品2: 预测性维护 -->
+        <div class="showcase-item">
+            <div class="showcase-content">
+                <h3>产品二</h3>
+                <h2>AI 预测性维护</h2>
+                <p>
+                    采集设备振动、温度、电流、声纹等多源传感器数据，构建设备健康画像。利用时序预测模型提前识别轴承磨损、电机老化、刀具钝化等潜在故障。
+                    自动生成维护工单并推送至 EAM 系统，实现从"故障修"到"预测修"的转变，显著延长设备使用寿命。
+                </p>
+                <a href="#" class="showcase-link">
+                    了解详情 →
+                </a>
+            </div>
+            <div class="showcase-image">
+                <img src="./product-2.png" alt="AI 预测性维护界面">
+            </div>
+        </div>
+
+        <!-- 产品3: 生产排程 -->
+        <div class="showcase-item">
+            <div class="showcase-content">
+                <h3>产品三</h3>
+                <h2>AI 生产排程优化</h2>
+                <p>
+                    整合 ERP 订单、MES 产能、WMS 库存、设备状态等全链路数据，运用强化学习与运筹优化算法，自动生成最优生产计划。
+                    支持急单插单动态重排，实时响应产线异常，确保订单准时交付的同时最大化设备利用率与最小化换线损失。
+                </p>
+                <a href="#" class="showcase-link">
+                    了解详情 →
+                </a>
+            </div>
+            <div class="showcase-image">
+                <img src="./product-3.png" alt="AI 生产排程优化界面">
+            </div>
+        </div>
+
+        <!-- 产品4: 工艺参数 -->
+        <div class="showcase-item">
+            <div class="showcase-content">
+                <h3>产品四</h3>
+                <h2>AI 工艺参数优化</h2>
+                <p>
+                    深度挖掘历史工艺数据与质量结果的关联关系，构建工艺参数-质量指标预测模型。自动推荐温度、压力、速度等关键参数的最优设定值。
+                    支持在线闭环控制，实时微调工艺参数以补偿原料波动与环境变化，持续稳定输出高品质产品。
+                </p>
+                <a href="#" class="showcase-link">
+                    了解详情 →
+                </a>
+            </div>
+            <div class="showcase-image">
+                <img src="./product-4.png" alt="AI 工艺参数优化界面">
+            </div>
+        </div>
+
+        <!-- 产品5: 供应链 -->
+        <div class="showcase-item">
+            <div class="showcase-content">
+                <h3>产品五</h3>
+                <h2>AI 供应链智能预测</h2>
+                <p>
+                    融合销售数据、市场趋势、季节因素、促销计划等多维信息，构建精准的需求预测模型。智能计算安全库存水位与补货时点，
+                    自动识别供应链断点风险并推送预警。支持供应商交付绩效评估与替代方案推荐，构建韧性供应链体系。
+                </p>
+                <a href="#" class="showcase-link">
+                    了解详情 →
+                </a>
+            </div>
+            <div class="showcase-image">
+                <img src="./product-5.png" alt="AI 供应链智能预测界面">
+            </div>
+        </div>
+
+        <!-- 产品6: 数字孪生 -->
+        <div class="showcase-item">
+            <div class="showcase-content">
+                <h3>产品六</h3>
+                <h2>AI 数字孪生工厂</h2>
+                <p>
+                    基于 BIM、CAD 与实时 IoT 数据，构建 1:1 高精度的工厂数字孪生体。实现生产全流程三维可视化监控、设备运行状态实时映射、
+                    产线瓶颈智能诊断。支持虚拟调试与新产线仿真验证，在数字空间中完成工艺验证后再落地实体产线，大幅降低试错成本。
+                </p>
+                <a href="#" class="showcase-link">
+                    了解详情 →
+                </a>
+            </div>
+            <div class="showcase-image">
+                <img src="./product-6.png" alt="AI 数字孪生工厂界面">
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据统计 -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>服务制造企业</p>
+            </div>
+            <div class="stat-item">
+                <h3>99.2%</h3>
+                <p>质检平均准确率</p>
+            </div>
+            <div class="stat-item">
+                <h3>40%</h3>
+                <p>停机时间降低</p>
+            </div>
+            <div class="stat-item">
+                <h3>30%</h3>
+                <p>排程效率提升</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2>开启您的智能制造之旅</h2>
+        <p>
+            已有超过 500 家制造企业选择珀思云，几分钟内即可接入 AI 工业大脑，
+            让数据驱动决策，让智能赋能生产。
+        </p>
+        <div class="cta-buttons">
+            <a href="#" class="btn-primary">
+                免费试用
+                <span>→</span>
+            </a>
+            <a href="#" class="btn-secondary">
+                联系销售
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <img src="./logo.png" alt="珀思云 Logo">
+                        <span>珀思云 PerseonAI</span>
+                    </div>
+                    <p class="footer-desc">
+                        珀思云科技（南京）有限公司致力于以人工智能技术赋能工业制造，为企业提供全链路智能化升级解决方案。
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" title="微信">微</a>
+                        <a href="#" title="微博">博</a>
+                        <a href="#" title="GitHub">G</a>
+                        <a href="#" title="LinkedIn">in</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>产品</h4>
+                    <a href="#">智能质检</a>
+                    <a href="#">预测性维护</a>
+                    <a href="#">生产排程</a>
+                    <a href="#">工艺优化</a>
+                    <a href="#">供应链预测</a>
+                    <a href="#">数字孪生</a>
+                </div>
+                <div class="footer-column">
+                    <h4>解决方案</h4>
+                    <a href="#">汽车制造</a>
+                    <a href="#">电子半导体</a>
+                    <a href="#">钢铁冶金</a>
+                    <a href="#">新能源光伏</a>
+                    <a href="#">化工制药</a>
+                </div>
+                <div class="footer-column">
+                    <h4>开发者</h4>
+                    <a href="#">文档中心</a>
+                    <a href="#">API 参考</a>
+                    <a href="#">SDK 下载</a>
+                    <a href="#">开源社区</a>
+                    <a href="#">状态页面</a>
+                </div>
+                <div class="footer-column">
+                    <h4>公司</h4>
+                    <a href="#">关于我们</a>
+                    <a href="#">新闻动态</a>
+                    <a href="#">加入我们</a>
+                    <a href="#">联系方式</a>
+                    <a href="#">隐私政策</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 珀思云科技（南京）有限公司 PerseonAI. 保留所有权利.</span>
+            <span>苏ICP备XXXXXXXX号 · 隐私政策 · 服务条款</span>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
