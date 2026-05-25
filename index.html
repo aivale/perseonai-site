@@ -1196,86 +1196,33 @@
             .footer-grid { grid-template-columns: 1fr; }
         }
     
-        /* ===== Stripe 风格右上角彩色飘带 (VMware 配色) ===== */
+        /* ===== WebGL 渐变飘带 (Stripe 风格, VMware 配色) ===== */
         .gradient-wrap {
             position: fixed;
             top: 0;
             right: 0;
-            width: 50vw;
-            height: 50vh;
+            width: 60vw;
+            height: 60vh;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
             overflow: hidden;
         }
-
-        .gradient-wrap::before {
-            content: '';
+        #gradient-canvas {
             position: absolute;
-            top: -60%;
-            right: -60%;
-            width: 220%;
-            height: 220%;
-            background: conic-gradient(
-                from 0deg at 50% 50%,
-                #c4d600 0deg,
-                #4a9c2d 30deg,
-                #0071c5 60deg,
-                #ffffff 90deg,
-                #c4d600 120deg,
-                #4a9c2d 150deg,
-                #0071c5 180deg,
-                #ffffff 210deg,
-                #c4d600 240deg,
-                #4a9c2d 270deg,
-                #0071c5 300deg,
-                #ffffff 330deg,
-                #c4d600 360deg
-            );
-            filter: blur(80px) saturate(1.5);
-            opacity: 0.7;
-            animation: ribbonRotate 20s linear infinite;
-            transform-origin: center center;
-        }
-
-        .gradient-wrap::after {
-            content: '';
-            position: absolute;
-            top: -40%;
-            right: -40%;
-            width: 180%;
-            height: 180%;
-            background: conic-gradient(
-                from 180deg at 50% 50%,
-                #0071c5 0deg,
-                #c4d600 45deg,
-                #4a9c2d 90deg,
-                #ffffff 135deg,
-                #0071c5 180deg,
-                #c4d600 225deg,
-                #4a9c2d 270deg,
-                #ffffff 315deg,
-                #0071c5 360deg
-            );
-            filter: blur(60px) saturate(1.3);
-            opacity: 0.5;
-            animation: ribbonRotate 15s linear infinite reverse;
-            mix-blend-mode: screen;
-        }
-
-        @keyframes ribbonRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .hero {
-            position: relative;
-            z-index: 1;
+            top: -20%;
+            right: -20%;
+            width: 140%;
+            height: 140%;
+            transform: skewY(-8deg);
+            transform-origin: top right;
         }
 </style>
 </head>
 <body data-lang="zh">
-    <!-- Stripe 风格右上角彩色飘带 (VMware 配色) -->
-    <div class="gradient-wrap"></div>
+    <!-- WebGL 渐变飘带 (Stripe 风格, VMware 配色) -->
+    <div class="gradient-wrap">
+        <canvas id="gradient-canvas"></canvas>
+    </div>
 
     <!-- 导航栏 -->
     <nav class="navbar" id="navbar">
@@ -1531,9 +1478,9 @@
     <section class="showcase" id="solutions">
         <div class="showcase-item">
             <div class="showcase-content reveal">
-                <h3 data-i18n="s1-label">产品一</h3>
-                <h2 data-i18n="s1-title">AI 智能质检系统</h2>
-                <p data-i18n="s1-desc">部署高清工业相机与边缘计算节点，实时采集产线图像数据。基于自研深度学习模型，毫秒级识别表面划痕、凹陷、色差、尺寸偏差等缺陷类型。</p>
+                <h3>产品一</h3>
+                <h2>AI 智能质检系统</h2>
+                <p>部署高清工业相机与边缘计算节点，实时采集产线图像数据。基于自研深度学习模型，毫秒级识别表面划痕、凹陷、色差、尺寸偏差等缺陷类型。</p>
                 <a href="#" class="showcase-link" data-i18n="showcase-link">了解详情 →</a>
             </div>
             <div class="showcase-image reveal reveal-delay-2">
@@ -1543,9 +1490,9 @@
 
         <div class="showcase-item">
             <div class="showcase-content reveal">
-                <h3 data-i18n="s2-label">产品二</h3>
-                <h2 data-i18n="s2-title">AI 预测性维护</h2>
-                <p data-i18n="s2-desc">采集设备振动、温度、电流、声纹等多源传感器数据，构建设备健康画像。利用时序预测模型提前识别潜在故障。</p>
+                <h3>产品二</h3>
+                <h2>AI 预测性维护</h2>
+                <p>采集设备振动、温度、电流、声纹等多源传感器数据，构建设备健康画像。利用时序预测模型提前识别潜在故障。</p>
                 <a href="#" class="showcase-link" data-i18n="showcase-link">了解详情 →</a>
             </div>
             <div class="showcase-image reveal reveal-delay-2">
@@ -1555,9 +1502,9 @@
 
         <div class="showcase-item">
             <div class="showcase-content reveal">
-                <h3 data-i18n="s3-label">产品三</h3>
-                <h2 data-i18n="s3-title">AI 生产排程优化</h2>
-                <p data-i18n="s3-desc">整合 ERP 订单、MES 产能、WMS 库存等全链路数据，运用强化学习与运筹优化算法，自动生成最优生产计划。</p>
+                <h3>产品三</h3>
+                <h2>AI 生产排程优化</h2>
+                <p>整合 ERP 订单、MES 产能、WMS 库存等全链路数据，运用强化学习与运筹优化算法，自动生成最优生产计划。</p>
                 <a href="#" class="showcase-link" data-i18n="showcase-link">了解详情 →</a>
             </div>
             <div class="showcase-image reveal reveal-delay-2">
@@ -1567,9 +1514,9 @@
 
         <div class="showcase-item">
             <div class="showcase-content reveal">
-                <h3 data-i18n="s4-label">产品四</h3>
-                <h2 data-i18n="s4-title">AI 工艺参数优化</h2>
-                <p data-i18n="s4-desc">深度挖掘历史工艺数据与质量结果的关联关系，构建工艺参数-质量指标预测模型，自动推荐最优设定值。</p>
+                <h3>产品四</h3>
+                <h2>AI 工艺参数优化</h2>
+                <p>深度挖掘历史工艺数据与质量结果的关联关系，构建工艺参数-质量指标预测模型，自动推荐最优设定值。</p>
                 <a href="#" class="showcase-link" data-i18n="showcase-link">了解详情 →</a>
             </div>
             <div class="showcase-image reveal reveal-delay-2">
@@ -1579,9 +1526,9 @@
 
         <div class="showcase-item">
             <div class="showcase-content reveal">
-                <h3 data-i18n="s5-label">产品五</h3>
-                <h2 data-i18n="s5-title">AI 供应链智能预测</h2>
-                <p data-i18n="s5-desc">融合销售数据、市场趋势、季节因素等多维信息，构建精准的需求预测模型，智能计算安全库存水位。</p>
+                <h3>产品五</h3>
+                <h2>AI 供应链智能预测</h2>
+                <p>融合销售数据、市场趋势、季节因素等多维信息，构建精准的需求预测模型，智能计算安全库存水位。</p>
                 <a href="#" class="showcase-link" data-i18n="showcase-link">了解详情 →</a>
             </div>
             <div class="showcase-image reveal reveal-delay-2">
@@ -1591,9 +1538,9 @@
 
         <div class="showcase-item">
             <div class="showcase-content reveal">
-                <h3 data-i18n="s6-label">产品六</h3>
-                <h2 data-i18n="s6-title">AI 数字孪生工厂</h2>
-                <p data-i18n="s6-desc">基于 BIM、CAD 与实时 IoT 数据，构建 1:1 高精度的工厂数字孪生体，实现全流程可视化监控。</p>
+                <h3>产品六</h3>
+                <h2>AI 数字孪生工厂</h2>
+                <p>基于 BIM、CAD 与实时 IoT 数据，构建 1:1 高精度的工厂数字孪生体，实现全流程可视化监控。</p>
                 <a href="#" class="showcase-link" data-i18n="showcase-link">了解详情 →</a>
             </div>
             <div class="showcase-image reveal reveal-delay-2">
@@ -1676,7 +1623,7 @@
                     <a href="#" data-i18n="footer-community">开源社区</a>
                 </div>
                 <div class="footer-column reveal reveal-delay-4">
-                    <h4 data-i18n="footer-company">公司</h4>
+                    <h4>公司</h4>
                     <a href="#" data-i18n="footer-about">关于我们</a>
                     <a href="#" data-i18n="footer-news">新闻动态</a>
                     <a href="#" data-i18n="footer-careers">加入我们</a>
@@ -2026,6 +1973,321 @@
                 switchLang(savedLang);
             }
         });
-    </script>
+    
+
+        // ===== WebGL 渐变动画 (Stripe 风格, VMware 配色) =====
+        (function() {
+            function normalizeColor(hexCode) {
+                return [
+                    ((hexCode >> 16) & 255) / 255,
+                    ((hexCode >> 8) & 255) / 255,
+                    (255 & hexCode) / 255
+                ];
+            }
+
+            class MiniGl {
+                constructor(canvas, width, height) {
+                    this.canvas = canvas;
+                    this.gl = canvas.getContext('webgl', { antialias: true });
+                    this.meshes = [];
+                    this.commonUniforms = {};
+
+                    if (width && height) this.setSize(width, height);
+
+                    const context = this.gl;
+
+                    this.Attribute = class {
+                        constructor(options) {
+                            this.target = options.target;
+                            this.size = options.size;
+                            this.type = options.type || context.FLOAT;
+                            this.normalized = options.normalized || false;
+                            this.buffer = context.createBuffer();
+                            this.update = (data) => {
+                                context.bindBuffer(this.target, this.buffer);
+                                context.bufferData(this.target, data, context.STATIC_DRAW);
+                            };
+                        }
+                    };
+
+                    this.Material = class {
+                        constructor(vertexShaders, fragments, uniforms = {}) {
+                            const material = this;
+                            material.uniforms = uniforms;
+                            material.uniformInstances = [];
+
+                            function getShaderByType(type, source) {
+                                const shader = context.createShader(type);
+                                context.shaderSource(shader, source);
+                                context.compileShader(shader);
+                                return shader;
+                            }
+
+                            function getUniformVariableDeclarations(uniforms, type) {
+                                return Object.entries(uniforms)
+                                    .map(([name, uniform]) => uniform.getDeclaration(name, type))
+                                    .join("\n");
+                            }
+
+                            const prefix = "precision highp float;";
+                            material.vertexSource = `${prefix}
+                                attribute vec4 position;
+                                attribute vec2 uv;
+                                ${getUniformVariableDeclarations(miniGl.commonUniforms, "vertex")}
+                                ${getUniformVariableDeclarations(uniforms, "vertex")}
+                                ${vertexShaders}`;
+
+                            material.fragmentSource = `${prefix}
+                                ${getUniformVariableDeclarations(miniGl.commonUniforms, "fragment")}
+                                ${getUniformVariableDeclarations(uniforms, "fragment")}
+                                ${fragments}`;
+
+                            material.vertexShader = getShaderByType(context.VERTEX_SHADER, material.vertexSource);
+                            material.fragmentShader = getShaderByType(context.FRAGMENT_SHADER, material.fragmentSource);
+                            material.program = context.createProgram();
+                            context.attachShader(material.program, material.vertexShader);
+                            context.attachShader(material.program, material.fragmentShader);
+                            context.linkProgram(material.program);
+                            context.useProgram(material.program);
+                            material.attachUniforms(void 0, miniGl.commonUniforms);
+                            material.attachUniforms(void 0, material.uniforms);
+                        }
+
+                        attachUniforms(name, uniforms) {
+                            const material = this;
+                            if (void 0 === name) {
+                                Object.entries(uniforms).forEach(([name, uniform]) => {
+                                    material.attachUniforms(name, uniform);
+                                });
+                            } else if ("array" == uniforms.type) {
+                                uniforms.value.forEach((uniform, i) =>
+                                    material.attachUniforms(`${name}[${i}]`, uniform)
+                                );
+                            } else {
+                                material.uniformInstances.push({
+                                    uniform: uniforms,
+                                    location: context.getUniformLocation(material.program, name)
+                                });
+                            }
+                        }
+                    };
+
+                    this.Uniform = class {
+                        constructor(options) {
+                            this.type = "float";
+                            Object.assign(this, options);
+                            this.typeFn = {
+                                float: "1f", int: "1i", vec2: "2fv", vec3: "3fv", vec4: "4fv", mat4: "Matrix4fv"
+                            }[this.type] || "1f";
+                            this.update();
+                        }
+                        update(value) {
+                            if (void 0 !== this.value) {
+                                context[`uniform${this.typeFn}`](
+                                    value || this.location,
+                                    0 === this.typeFn.indexOf("Matrix") ? this.transpose : this.value,
+                                    0 === this.typeFn.indexOf("Matrix") ? this.value : null
+                                );
+                            }
+                        }
+                        getDeclaration(name, type, length) {
+                            if (this.excludeFrom !== type) {
+                                return `uniform ${this.type} ${name}${length > 0 ? `[${length}]` : ""};`;
+                            }
+                            return "";
+                        }
+                    };
+
+                    this.PlaneGeometry = class {
+                        constructor(width, height, segmentsX, segmentsY) {
+                            const geometry = this;
+                            geometry.attributes = {
+                                position: new miniGl.Attribute({ target: context.ARRAY_BUFFER, size: 3 }),
+                                uv: new miniGl.Attribute({ target: context.ARRAY_BUFFER, size: 2 }),
+                                index: new miniGl.Attribute({ target: context.ELEMENT_ARRAY_BUFFER, size: 3, type: context.UNSIGNED_SHORT })
+                            };
+
+                            const vertices = [];
+                            const uvs = [];
+                            const indices = [];
+
+                            for (let y = 0; y <= segmentsY; y++) {
+                                for (let x = 0; x <= segmentsX; x++) {
+                                    const u = x / segmentsX;
+                                    const v = y / segmentsY;
+                                    vertices.push((u - 0.5) * width, (v - 0.5) * height, 0);
+                                    uvs.push(u, v);
+                                }
+                            }
+
+                            for (let y = 0; y < segmentsY; y++) {
+                                for (let x = 0; x < segmentsX; x++) {
+                                    const a = y * (segmentsX + 1) + x;
+                                    const b = a + 1;
+                                    const c = a + segmentsX + 1;
+                                    const d = c + 1;
+                                    indices.push(a, b, c, b, d, c);
+                                }
+                            }
+
+                            geometry.attributes.position.update(new Float32Array(vertices));
+                            geometry.attributes.uv.update(new Float32Array(uvs));
+                            geometry.attributes.index.update(new Uint16Array(indices));
+                            geometry.vertexCount = indices.length;
+                        }
+                    };
+
+                    this.Mesh = class {
+                        constructor(geometry, material) {
+                            const mesh = this;
+                            mesh.geometry = geometry;
+                            mesh.material = material;
+                            mesh.wireframe = false;
+                            mesh.attributeInstances = [];
+
+                            Object.entries(mesh.geometry.attributes).forEach(([e, attribute]) => {
+                                const location = context.getAttribLocation(mesh.material.program, e);
+                                if (-1 !== location) {
+                                    mesh.attributeInstances.push({ attribute, location });
+                                }
+                            });
+                        }
+
+                        draw() {
+                            context.useProgram(this.material.program);
+                            this.material.uniformInstances.forEach(({ uniform, location }) => {
+                                uniform.update(location);
+                            });
+                            this.attributeInstances.forEach(({ attribute, location }) => {
+                                context.bindBuffer(attribute.target, attribute.buffer);
+                                context.enableVertexAttribArray(location);
+                                context.vertexAttribPointer(location, attribute.size, attribute.type, attribute.normalized, 0, 0);
+                            });
+                            context.drawElements(this.wireframe ? context.LINES : context.TRIANGLES, this.geometry.vertexCount, context.UNSIGNED_SHORT, 0);
+                        }
+                    };
+
+                    const miniGl = this;
+                }
+
+                setSize(width, height) {
+                    this.canvas.width = width;
+                    this.canvas.height = height;
+                    this.gl.viewport(0, 0, width, height);
+                    this.commonUniforms.projectionMatrix = new this.Uniform({
+                        type: "mat4",
+                        value: [2/width, 0, 0, 0, 0, -2/height, 0, 0, 0, 0, 1, 0, -1, 1, 0, 1]
+                    });
+                    this.commonUniforms.viewMatrix = new this.Uniform({ type: "mat4", value: [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1] });
+                }
+            }
+
+            // Initialize gradient
+            const canvas = document.getElementById('gradient-canvas');
+            if (!canvas) return;
+
+            const minigl = new MiniGl(canvas, window.innerWidth, window.innerHeight);
+            const colors = [
+                normalizeColor(0xc4d600),
+                normalizeColor(0x4a9c2d),
+                normalizeColor(0x0071c5),
+                normalizeColor(0xffffff),
+            ];
+
+            const material = new minigl.Material(
+                `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * viewMatrix * position; }`,
+                `precision highp float;
+                varying vec2 vUv;
+                uniform float u_time;
+                uniform vec3 u_color0;
+                uniform vec3 u_color1;
+                uniform vec3 u_color2;
+                uniform vec3 u_color3;
+
+                vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}
+                vec4 mod289(vec4 x){return x-floor(x*(1.0/289.0))*289.0;}
+                vec4 permute(vec4 x){return mod289(((x*34.0)+1.0)*x);}
+                vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-0.85373472095314*r;}
+                float snoise(vec3 v){
+                    const vec2 C=vec2(1.0/6.0,1.0/3.0);
+                    const vec4 D=vec4(0.0,0.5,1.0,2.0);
+                    vec3 i=floor(v+dot(v,C.yyy));
+                    vec3 x0=v-i+dot(i,C.xxx);
+                    vec3 g=step(x0.yzx,x0.xyz);
+                    vec3 l=1.0-g;
+                    vec3 i1=min(g.xyz,l.zxy);
+                    vec3 i2=max(g.xyz,l.zxy);
+                    vec3 x1=x0-i1+C.xxx;
+                    vec3 x2=x0-i2+C.yyy;
+                    vec3 x3=x0-D.yyy;
+                    i=mod289(i);
+                    vec4 p=permute(permute(permute(i.z+vec4(0.0,i1.z,i2.z,1.0))+i.y+vec4(0.0,i1.y,i2.y,1.0))+i.x+vec4(0.0,i1.x,i2.x,1.0));
+                    float n_=0.142857142857;
+                    vec3 ns=n_*D.wyz-D.xzx;
+                    vec4 j=p-49.0*floor(p*ns.z*ns.z);
+                    vec4 x_=floor(j*ns.z);
+                    vec4 y_=floor(j-7.0*x_);
+                    vec4 x=x_*ns.x+ns.yyyy;
+                    vec4 y=y_*ns.x+ns.yyyy;
+                    vec4 h=1.0-abs(x)-abs(y);
+                    vec4 b0=vec4(x.xy,y.xy);
+                    vec4 b1=vec4(x.zw,y.zw);
+                    vec4 s0=floor(b0)*2.0+1.0;
+                    vec4 s1=floor(b1)*2.0+1.0;
+                    vec4 sh=-step(h,vec4(0.0));
+                    vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy;
+                    vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+                    vec3 p0=vec3(a0.xy,h.x);
+                    vec3 p1=vec3(a0.zw,h.y);
+                    vec3 p2=vec3(a1.xy,h.z);
+                    vec3 p3=vec3(a1.zw,h.w);
+                    vec4 norm=taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));
+                    p0*=norm.x;p1*=norm.y;p2*=norm.z;p3*=norm.w;
+                    vec4 m=max(0.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.0);
+                    m=m*m;
+                    return 42.0*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));
+                }
+
+                void main(){
+                    vec2 uv=vUv;
+                    float time=u_time*0.0003;
+                    float n1=snoise(vec3(uv*2.0,time))*0.5+0.5;
+                    float n2=snoise(vec3(uv*3.0+100.0,time*1.2))*0.5+0.5;
+                    float n3=snoise(vec3(uv*1.5+200.0,time*0.8))*0.5+0.5;
+                    vec3 color=mix(u_color0,u_color1,n1);
+                    color=mix(color,u_color2,n2*0.5);
+                    color=mix(color,u_color3,n3*0.3);
+                    gl_FragColor=vec4(color,1.0);
+                }`,
+                {
+                    u_time: new minigl.Uniform({ type: "float", value: 0 }),
+                    u_color0: new minigl.Uniform({ type: "vec3", value: colors[0] }),
+                    u_color1: new minigl.Uniform({ type: "vec3", value: colors[1] }),
+                    u_color2: new minigl.Uniform({ type: "vec3", value: colors[2] }),
+                    u_color3: new minigl.Uniform({ type: "vec3", value: colors[3] })
+                }
+            );
+
+            const geometry = new minigl.PlaneGeometry(window.innerWidth, window.innerHeight, 1, 1);
+            const mesh = new minigl.Mesh(geometry, material);
+            minigl.meshes.push(mesh);
+
+            let time = 0;
+            let lastTime = performance.now();
+            function animate() {
+                const now = performance.now();
+                time += now - lastTime;
+                lastTime = now;
+                mesh.material.uniforms.u_time.value = time;
+                mesh.draw();
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                minigl.setSize(window.innerWidth, window.innerHeight);
+            });
+        })();
+</script>
 </body>
 </html>
